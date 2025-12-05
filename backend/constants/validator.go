@@ -1,0 +1,26 @@
+package constants
+
+const (
+	ValidationEmpty                       = "VALIDATION_EMPTY"
+	ValidationStockUpdate                 = "VALIDATION_STOCK_UPDATE"
+	ValidationStockNotEnough              = "VALIDATION_STOCK_NOT_ENOUGH"
+	ValidationUserRecIdOrUserMustBeFilled = "VALIDATION_USERRECID_OR_USER_MUST_BE_FILLED"
+	ValidationMinNumber                   = "VALIDATION_MIN_NUMBER"
+	ValidationMaxNumber                   = "VALIDATION_MAX_NUMBER"
+	ValidationMinimum                     = "VALIDATION_MINIMUM"
+	ValidationMaximum                     = "VALIDATION_MAXIMUM"
+	ValidationMaxChar                     = "VALIDATION_MAX_CHAR"
+	ValidationChoices                     = "VALIDATION_CHOICES"
+	ValidationEmptyRequestBody            = "VALIDATION_REQUEST_BODY_EMPTY"
+	ValidationDuplicateValue              = "VALIDATION_DUPLICATE_VALUE"
+	ValidationProductVariantImage         = "VALIDATION_PRODUCT_VARIANT_IMAGE"
+	ValidationAlreadyExists               = "VALIDATION_ALREADY_EXISTS"
+	ValidationDoesNotExists               = "VALIDATION_DOES_NOT_EXISTS"
+	ValidationRelationNotFound            = "VALIDATION_RELATION_NOT_FOUND"
+	ValidationNewsUnrecognizedType        = "VALIDATION_NEWS_INVALID_TYPE"
+	ValidationNewsUnrecognizedStatus      = "VALIDATION_NEWS_INVALID_STATUS"
+	ValidationTimeNotBetweenStartEnd      = "VALIDATION_TIME_NOT_BETWEEN_START_END"
+	ValidationDateTimeFormat              = "VALIDATION_DATE_TIME_FORMAT"
+	ValidationNol                         = "VALIDATION_NOL"
+	ValidationTimeCannotBeBefore          = "VALIDATION_TIME_CANNOT_BE_BEFORE"
+)
