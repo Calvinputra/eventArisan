@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -25,7 +23,7 @@ type DetectedBarcode = {
   format: string;
 };
 
-export default function AdminScannerPage() {
+export default function ScannerClientPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState<Tab>("barcode");
