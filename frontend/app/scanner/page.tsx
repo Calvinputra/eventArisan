@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { useRouter, useSearchParams } from "next/navigation";
