@@ -1,6 +1,6 @@
 // frontend/app/scanner/page.tsx
 import { Suspense } from "react";
-import ScannerClientPage from "./scannerClient";
+import ScannerClientPage from "./ScannerClient";
 
 export default function ScannerPage() {
   return (
