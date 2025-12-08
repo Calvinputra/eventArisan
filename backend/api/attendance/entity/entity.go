@@ -11,6 +11,7 @@ type Attendance struct {
 	StatusCheckin     int8 `gorm:"column:status_checkin;not null" json:"statusCheckin"`
 	StatusSouvenir   int8 `gorm:"column:status_souvenir;not null" json:"statusSouvenir"`
 	CheckinTime      int64  `gorm:"column:checkin_time;not null"`
+	SouvenirTime      int64  `gorm:"column:souvenir_time;not null"`
 }
 
 type AttendanceHis struct {
@@ -22,6 +23,7 @@ type AttendanceHis struct {
 	StatusCheckin     int8 `gorm:"column:status_checkin;not null"`
 	StatusSouvenir   int8 `gorm:"column:status_souvenir;not null"`
 	CheckinTime      int64  `gorm:"column:checkin_time;not null"`
+	SouvenirTime      int64  `gorm:"column:souvenir_time;not null"`
 }
 
 func (Attendance) TableName() string {

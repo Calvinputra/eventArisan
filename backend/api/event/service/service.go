@@ -131,3 +131,13 @@ func (s *EventService) ListEvent(userType string) basemodel.Response {
     response := model.EventResponse{}.ToResponseList(events)
     return s.ResponseParameter.SetResponse(constants.ResponseSuccessListRecord, nil, response, nil)
 }
+
+func (s *EventService) GetEvent(recid string, typeEvent string) basemodel.Response {
+    event, err := s.EventRepository.FindByIdAndType(s.DB, recid, typeEvent)
+    if err != nil {
+        return s.ResponseParameter.SetResponse(constants.ResponseErrorNotFound, nil, nil, nil)
+    }
+
+    response := model.EventResponse{}.ToResponse(event)
+    return s.ResponseParameter.SetResponse(constants.ResponseSuccessGetRecord, nil, response, nil)
+}

@@ -129,18 +129,6 @@ func (c *CustomValidation) MinMaxFloat64Validation(min, max, value float64, isVa
 	return errors
 }
 
-func (c *CustomValidation) ValidationTimeNotBeforeStart(startDatetime, endDatetime time.Time, isValid *IsValidated) []string {
-	var errors []string = []string{}
-
-	if endDatetime.Before(startDatetime) {
-		isValid.Status = false
-		errors = append(errors, fmt.Sprintf(c.Rp.GetResponseMessageOnly(constants.ValidationTimeCannotBeBefore), startDatetime.AppendFormat([]byte{}, constants.LAYOUTTIME)))
-		return errors
-	}
-
-	return errors
-}
-
 func (c *CustomValidation) ValidationFormatDatetime(datetime string, isValid *IsValidated) (time.Time, []string) {
 	var errors []string = []string{}
 

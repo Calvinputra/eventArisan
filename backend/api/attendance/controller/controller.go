@@ -29,6 +29,9 @@ func NewAttendanceController(
 	appRoute.POST("/register", controller.CreateAttendance)
 	appRoute.PUT("/", controller.UpdateAttendance)
 	appRoute.DELETE("/:recid", controller.DeleteAttendance)
+	appRoute.GET("/list/:type", controller.ListAttendance)
+	appRoute.GET("/:type/:recid", controller.GetAttendance)
+	
 	appRoute.POST("/import", controller.ImportAttendance)
 	appRoute.POST("/scan", controller.ScanAttendance)
 }
@@ -106,4 +109,19 @@ func (c *AttendanceController) ScanAttendance(ctx *gin.Context) {
     inputter := "System"
     resp := c.ServiceAttendance.ScanAttendance(&req, inputter)
     ctx.JSON(resp.HttpCode, resp)
+}
+
+func (c *AttendanceController) ListAttendance(ctx *gin.Context) {
+    typeAttendance:= ctx.Param("type")
+
+    responseFromService := c.ServiceAttendance.ListAttendance(typeAttendance)
+    ctx.JSON(responseFromService.HttpCode, responseFromService)
+}	
+
+func (c *AttendanceController) GetAttendance(ctx *gin.Context) {
+    typeAttendance:= ctx.Param("type")
+    recid := ctx.Param("recid")
+
+    responseFromService := c.ServiceAttendance.GetAttendance(typeAttendance, recid)
+    ctx.JSON(responseFromService.HttpCode, responseFromService)
 }

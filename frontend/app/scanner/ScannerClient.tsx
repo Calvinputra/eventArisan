@@ -91,15 +91,15 @@ const applyScanResult = async (codeValue: string) => {
     console.error(error);
   };
 
-    const handleManualCheckin = async () => {
+  const handleManualCheckin = async () => {
     if (!manualCode.trim()) return;
 
     await applyScanResult(manualCode.trim()); 
 
     setManualCode(""); 
-    };
+  };
 
-    const handleExcelUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleExcelUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -134,7 +134,7 @@ const applyScanResult = async (codeValue: string) => {
     } finally {
         e.target.value = "";
     }
-    };
+  };
 
 
   const statusColor =
@@ -148,11 +148,11 @@ const applyScanResult = async (codeValue: string) => {
         <header className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <div className="h-9 w-9 rounded-full bg-amber-500 flex items-center justify-center text-xs font-bold text-black shadow-lg">
-              KTL
+              USD
             </div>
             <div className="text-xs leading-tight">
               <p className="font-semibold tracking-wide text-amber-300">Admin Check-in</p>
-              <p className="text-[10px] text-zinc-300">Panel tamu & undian</p>
+              <p className="text-[10px] text-zinc-300">Admin</p>
             </div>
           </div>
           <span className="rounded-full bg-zinc-900 px-3 py-1 text-[10px] text-zinc-300 border border-amber-500/40">
@@ -308,7 +308,7 @@ const applyScanResult = async (codeValue: string) => {
                 {/* Informasi Import */}
                 <div className="rounded-2xl bg-zinc-900/70 border border-amber-500/20 px-4 py-3 text-xs space-y-2">
                 <p className="text-[11px] text-zinc-300">
-                    Import daftar tamu / undian dari file Excel.
+                    Import daftar peserta / undian dari file Excel.
                 </p>
                 <p className="text-[11px] text-amber-400">
                     Gunakan template agar format data sesuai.
@@ -363,17 +363,19 @@ const applyScanResult = async (codeValue: string) => {
           >
             Back to Homepage
           </button>
-          <button
-            onClick={() => router.push("/doorprize")}
-            className="flex-1 rounded-full bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 px-4 py-3 text-sm font-semibold text-black shadow-lg shadow-amber-900/40 active:scale-[0.98] transition-transform"
-          >
-            Doorprize
-          </button>
-        </div>
+            <button
+              onClick={() =>
+                router.push(
+                  `/doorprize/list/LIVE?event=${eventRecid}&eventName=${encodeURIComponent(eventName)}`
+                )
+              }
+              className="flex-1 rounded-full bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500 px-4 py-3 text-sm font-semibold text-black shadow-lg shadow-amber-900/40 active:scale-[0.98] transition-transform"
+            >
+              Doorprize
+            </button>
 
-        <p className="text-[10px] text-center text-zinc-500">
-          Khusus petugas admin. Kamera bisa dinyalakan, dimatikan, dan ganti depan/belakang.
-        </p>
+
+        </div>
       </main>
     </div>
   );

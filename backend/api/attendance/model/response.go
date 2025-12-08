@@ -19,6 +19,7 @@ type AttendanceResponse struct {
 	StatusCheckin     int8 `gorm:"column:status_checkin;not null"`
 	StatusSouvenir   int8 `gorm:"column:status_souvenir;not null"`	
 	CheckinTime      int64  `gorm:"column:checkin_time;not null"`
+	SouvenirTime      int64  `gorm:"column:souvenir_time;not null"`
 }
 
 func (AttendanceResponse) ToResponse(entityAttendance *entity.Attendance) AttendanceResponse {
@@ -31,6 +32,7 @@ func (AttendanceResponse) ToResponse(entityAttendance *entity.Attendance) Attend
 		StatusCheckin: entityAttendance.StatusCheckin,
 		StatusSouvenir: entityAttendance.StatusSouvenir,
 		CheckinTime: entityAttendance.CheckinTime,
+		SouvenirTime: entityAttendance.SouvenirTime,
 	}
 }
 

@@ -192,6 +192,7 @@ func (s *AttendanceService) ImportAttendance(
             StatusCheckin:  0,
             StatusSouvenir: 0,
             CheckinTime:    0,
+            SouvenirTime:    0,
         })
     }
 
@@ -219,7 +220,6 @@ func (s *AttendanceService) ImportAttendance(
 
     tx.Commit()
 
-    // Kalau mau balikin list / jumlah
     return s.ResponseParameter.SetResponse(constants.ResponseSuccessInsertRecord, nil, list, nil)
 }
 
@@ -249,9 +249,28 @@ func (s *AttendanceService) ScanAttendance(
         )
     }
 
-    attendanceData.StatusCheckin = 1
-    attendanceData.StatusSouvenir = 1
-    attendanceData.CheckinTime = time.Now().Unix()
+    if attendanceData.StatusCheckin == 1 && attendanceData.StatusSouvenir == 1 {
+        return s.ResponseParameter.SetResponse(
+            "Kode sudah digunakan",
+            nil, "Peserta sudah check-in dan ambil souvenir, tidak dapat diproses lagi", nil,
+        )
+    }
+
+    now := time.Now().Unix()
+
+    // Checkin hanya sekali
+    if attendanceData.StatusCheckin == 0 {
+        attendanceData.StatusCheckin = 1
+        attendanceData.CheckinTime = now
+    }
+
+    // souvenir jika di centang
+    if req.Souvenir {
+        if attendanceData.StatusSouvenir == 0 {
+            attendanceData.StatusSouvenir = 1
+            attendanceData.SouvenirTime = now
+        }
+    }
 
     crudResponse, attendanceLive := s.crudLib.Update(tx, attendanceData, inputter)
     if crudResponse.Err != nil {
@@ -264,3 +283,30 @@ func (s *AttendanceService) ScanAttendance(
     return s.ResponseParameter.SetResponse(crudResponse.Message, nil, response, nil)
 }
 
+func (s *AttendanceService) ListAttendance(
+    userType string,
+) basemodel.Response {
+    users, err := s.AttendanceRepository.FindAllByType(userType)
+    if err != nil {
+        return s.ResponseParameter.SetResponse(constants.ResponseErrorNotFound, nil, nil, nil)
+    }
+
+    attendances, ok := users.([]entity.Attendance)
+    if !ok {
+        return s.ResponseParameter.SetResponse(constants.ResponseErrorInvalidTypeParameter, nil, nil, nil)
+    }
+
+    response := model.AttendanceResponse{}.ToResponseList(attendances)
+    return s.ResponseParameter.SetResponse(constants.ResponseSuccessListRecord, nil, response, nil)
+}   
+
+func (s *AttendanceService) GetAttendance(userType string, recid string) basemodel.Response {
+    attendance, err := s.AttendanceRepository.FindByIdAndType(s.DB, recid, userType)
+    if err != nil {
+        return s.ResponseParameter.SetResponse(constants.ResponseErrorNotFound, nil, nil, nil)
+    }
+
+
+    response := model.AttendanceResponse{}.ToResponse(attendance)
+    return s.ResponseParameter.SetResponse(constants.ResponseSuccessGetRecord, nil, response, nil)
+}

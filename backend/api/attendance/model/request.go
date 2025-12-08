@@ -18,6 +18,7 @@ func (r *CreateAttendanceRequest) ToEntity(inputter, apiType string) *entity.Att
 		StatusCheckin:     r.StatusCheckin,
 		StatusSouvenir:    r.StatusSouvenir,
 		CheckinTime:       r.CheckinTime,
+		SouvenirTime:       r.SouvenirTime,
 	}
 }	
 
@@ -34,13 +35,15 @@ func (r *UpdateAttendanceRequest) ToEntity(currentAttendance *entity.Attendance,
 	currentAttendance.StatusCheckin = r.StatusCheckin
 	currentAttendance.StatusSouvenir = r.StatusSouvenir
 	currentAttendance.CheckinTime = r.CheckinTime
+	currentAttendance.SouvenirTime = r.SouvenirTime
 
 	return currentAttendance 
 }
 
 type ScanAttendanceRequest struct {
-   EventRecid string `json:"event_recid" form:"eventRecid"`
-    Code       string `json:"code" form:"code"`
+   	EventRecid string `json:"event_recid" form:"eventRecid"`
+	Code       string `json:"code" form:"code"`
+	Souvenir   bool `json:"souvenir" form:"souvenir"`
 }
 
 func (r *ScanAttendanceRequest) ToEntity(currentAttendance *entity.Attendance, apiType string) *entity.Attendance {

@@ -8,6 +8,7 @@ type BaseAttendanceRequest struct {
 	StatusCheckin         int8 `json:"statusCheckin"`
 	StatusSouvenir         int8 `json:"StatusSouvenir"`
 	CheckinTime         int64 `json:"CheckinTime"`
+	SouvenirTime         int64 `json:"SouvenirTime"`
 }
 
 type BaseAttendanceRequestError struct {
@@ -18,6 +19,7 @@ type BaseAttendanceRequestError struct {
 	StatusCheckin         []int8 `json:"statusCheckin"`
 	StatusSouvenir         []int8 `json:"StatusSouvenir"`
 	CheckinTime         []int64 `json:"CheckinTime"`
+	SouvenirTime         []int64 `json:"SouvenirTime"`
 }
 
 func (BaseAttendanceRequestError) Empty() BaseAttendanceRequestError {
@@ -29,5 +31,6 @@ func (BaseAttendanceRequestError) Empty() BaseAttendanceRequestError {
         StatusCheckin:     []int8{},
         StatusSouvenir:    []int8{},
         CheckinTime:       []int64{},
+        SouvenirTime:       []int64{},
 	}
 }

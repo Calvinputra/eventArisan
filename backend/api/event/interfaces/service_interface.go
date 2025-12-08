@@ -10,4 +10,5 @@ type EventInterface interface {
     UpdateEvent(input *model.UpdateEventRequest, inputter string) basemodel.Response
     DeleteEvent(recid string, inputter string) basemodel.Response
 	ListEvent(typeEvent string) basemodel.Response
+    GetEvent(recid string, inputter string) basemodel.Response
 }

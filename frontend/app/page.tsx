@@ -7,8 +7,8 @@ type ApiEvent = {
   recid: string;
   Name: string;
   Description: string;
+  Location: string;
   StartDateTime: number;
-  EndDateTime: number;
   Status: string;
 };
 

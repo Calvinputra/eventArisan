@@ -29,6 +29,7 @@ func NewEventController(
 	appRoute.PUT("/", controller.UpdateEvent)
 	appRoute.DELETE("/:recid", controller.DeleteEvent)
 	appRoute.GET("/list/:type", controller.ListEvent)
+	appRoute.GET("/:type/:recid", controller.GetEvent)
 }
 
 func (c *EventController) RegisterEvent(ctx *gin.Context) {
@@ -74,5 +75,12 @@ func (c *EventController) ListEvent(ctx *gin.Context) {
 
 	responseFromService := c.ServiceEvent.ListEvent(typeEvent)
 	ctx.JSON(responseFromService.HttpCode, responseFromService)
+}
 
+func (c *EventController) GetEvent(ctx *gin.Context) {
+	recid := ctx.Param("recid")
+	typeEvent:= ctx.Param("type")
+
+	responseFromService := c.ServiceEvent.GetEvent(recid, typeEvent)
+	ctx.JSON(responseFromService.HttpCode, responseFromService)
 }

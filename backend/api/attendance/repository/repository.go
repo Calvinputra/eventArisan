@@ -6,6 +6,8 @@ import (
 	"event/backend/repository"
 	"gorm.io/gorm"
     "errors"
+	"strings"
+	"fmt"
 )
 type AttendanceRepository struct {
     Live repository.BaseRepository[entity.Attendance]
@@ -51,6 +53,33 @@ func (r *AttendanceRepository) GetByEventRecidAndCode(eventRecid, code string) (
             return nil, nil
         }
         return nil, err
+    }
+
+    return &attendance, nil
+}
+
+func (r *AttendanceRepository) FindAllByType(attendanceType string) (interface{}, error) {
+    attendanceType = strings.ToUpper(attendanceType)
+
+    switch attendanceType {
+    case "LIVE":
+        var attendance []entity.Attendance
+        result := r.DB.Find(&attendance)
+        return attendance, result.Error
+    default:
+        return nil, fmt.Errorf("invalid user type: %s", attendanceType)
+    }
+}	
+
+func (r *AttendanceRepository) FindByIdAndType(db *gorm.DB, recid string, typeAttendance string) (*entity.Attendance, error) {
+    var attendance entity.Attendance
+    result := db.Table(entity.Attendance{}.TableName()).
+        Where("recid = ?", recid).
+        Where("record_status = ?", typeAttendance).
+        First(&attendance)
+
+    if result.Error != nil {
+        return nil, result.Error
     }
 
     return &attendance, nil

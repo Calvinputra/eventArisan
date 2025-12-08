@@ -13,6 +13,11 @@ import(
 	attendanceRepository "event/backend/api/attendance/repository"
 	attendanceService "event/backend/api/attendance/service"
 	attendanceController "event/backend/api/attendance/controller"
+
+	// doorprize
+	doorprizeRepository "event/backend/api/doorprize/repository"
+	doorprizeService "event/backend/api/doorprize/service"
+	doorprizeController "event/backend/api/doorprize/controller"
 	
 	"event/backend/migrate"
 )
@@ -47,14 +52,17 @@ func main() {
 	// Repository
 	eventRepository := eventRepository.NewEventRepository(db,log)
 	attendanceRepository := attendanceRepository.NewAttendanceRepository(log, db)
+	doorprizeRepository := doorprizeRepository.NewDoorprizeRepository(db, log)
 
 	// Service
 	eventService := eventService.NewEventService(db, log, validate, cv, rp, eventRepository)
 	attendanceService := attendanceService.NewAttendanceService(db, log, validate, cv, rp, attendanceRepository)
+	doorprizeService := doorprizeService.NewDoorprizeService(db, log, validate, cv, rp, doorprizeRepository)
 
 	// Controller
 	eventController.NewEventController(appRouter, log, eventService, rp)
 	attendanceController.NewAttendanceController(appRouter, log, attendanceService, rp)
+	doorprizeController.NewDoorprizeController(appRouter, log, doorprizeService, rp)
 
 	err := router.Run(":8080")
 	if err != nil {

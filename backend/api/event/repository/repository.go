@@ -54,3 +54,17 @@ func (r *EventRepository) FindAllByType(eventType string) (interface{}, error) {
         return nil, fmt.Errorf("invalid user type: %s", eventType)
     }
 }
+
+func (r *EventRepository) FindByIdAndType(db *gorm.DB, recid string, typeEvent string) (*entity.Event, error) {
+    var event entity.Event
+    result := db.Table(entity.Event{}.TableName()).
+        Where("recid = ?", recid).
+        Where("record_status = ?", typeEvent).
+        First(&event)
+
+    if result.Error != nil {
+        return nil, result.Error
+    }
+
+    return &event, nil
+}

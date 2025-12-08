@@ -13,8 +13,8 @@ func (r *CreateEventRequest) ToEntity(inputter, apiType string) *entity.Event {
 		AuditTrail:  model.AuditTrail{},
 		Name:        r.Name,
 		Description: r.Description,
+		Location:    r.Location,
 		StartDateTime:  r.StartDateTime,
-		EndDateTime:    r.EndDateTime,
 		Status:         r.Status,
 	}
 }	
@@ -27,8 +27,8 @@ type UpdateEventRequest struct {
 func (r *UpdateEventRequest) ToEntity(currentEvent *entity.Event, apiType string) *entity.Event {
 	currentEvent.Name = r.Name
 	currentEvent.Description = r.Description
+	currentEvent.Location = r.Location
 	currentEvent.StartDateTime = r.StartDateTime
-	currentEvent.EndDateTime = r.EndDateTime
 	currentEvent.Status = r.Status
 
 	return currentEvent 
@@ -44,8 +44,8 @@ type ListEventRequest struct {
 func (r *ListEventRequest) ToEntity(currentEvent *entity.Event, apiType string) *entity.Event {
 	currentEvent.Name = r.Name
 	currentEvent.Description = r.Description
+	currentEvent.Location = r.Location
 	currentEvent.StartDateTime = r.StartDateTime
-	currentEvent.EndDateTime = r.EndDateTime
 	currentEvent.Status = r.Status
 
 	return currentEvent 
